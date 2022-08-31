@@ -1,0 +1,23 @@
+if command -v docker &> /dev/null; then
+    alias dcoker=docker
+elif command -v podman &> /dev/null; then
+    alias docker=podman
+fi
+
+if which brew &> /dev/null; then
+    alias scoop=brew
+fi
+
+if [ -d "$SCOOP_HOME/shims" ]; then
+    alias scoop="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File ${WIN32_SCOOP_HOME}/shims/scoop.ps1"
+fi
+
+alias vi=vim
+if which nvim &> /dev/null; then
+    alias vim=nvim
+fi
+
+# basic command
+#if which exa &> /dev/null; then
+#    alias ls='exa --icons'
+#fi

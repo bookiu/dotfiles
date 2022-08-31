@@ -1,0 +1,4 @@
+registry=https://mirrors.tencent.com/npm/
+#proxy=http://example.com:8080
+#https-proxy=http://example.com:8080
+#noproxy=mirrors.cloud.tencent.com,mirrors.tencent.com

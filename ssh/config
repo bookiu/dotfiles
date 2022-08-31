@@ -1,0 +1,14 @@
+Include ~/.ssh/config.d/*.config
+
+Host *
+    User yaxin
+    Port 22
+    ServerAliveInterval 60
+    ConnectTimeout 10
+    ConnectionAttempts 3
+    ServerAliveCountMax 120
+    IdentityFile ~/.ssh/id_ed25519
+    GSSAPIAuthentication no
+    ControlMaster auto
+    ControlPath ~/.ssh/session_%h-%p-%r
+    ControlPersist 48h

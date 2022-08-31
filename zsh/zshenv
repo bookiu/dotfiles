@@ -1,0 +1,107 @@
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+#
+XDG_CONFIG_HOME="$HOME/.config"
+
+# Proxy
+proxies=("$HOME/.proxyrc" "/etc/proxyrc")
+for proxyrc in $proxies; do
+    if [[ -f $proxyrc ]]; then
+        source $proxyrc
+        break
+    fi
+done
+
+# zsh autosuggest plugin
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#808080'
+
+# homebrew
+if [[ `uname` == "Darwin" ]]; then
+    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tencent.com/homebrew-bottles/bottles
+fi
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export HOMEBREW_NO_AUTO_UPDATE=1
+#export HOMEBREW_FORCE_BREWED_CURL=1
+
+# tmux
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
+fi
+
+# Python
+if [ -d "$HOME/.poetry" ]; then
+    PATH="$HOME/.poetry/bin:$PATH"
+fi
+if [ -d "$HOME/.pyenv" -a $(which ip &> /dev/null) ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+fi
+PATH="~/.local/bin:$PATH"
+
+# Golang
+if [ -f /usr/local/go/bin/go ]; then
+    export GOROOT=/usr/local/go
+    PATH=$GOROOT/bin:$PATH
+fi
+export GOPATH=$HOME/Projects/GoPath
+export GO111MODULE=on
+#export GOPROXY=https://goproxy.cn
+PATH=$GOPATH/bin:$PATH
+
+# Java
+if [ -f /etc/javarc ]; then
+    source /etc/javarc
+fi
+
+# PHP
+composer_homes=("$HOME/.composer" "$XDG_CONFIG_HOME/composer")
+for item in $composer_homes; do
+    if [ -d $item ];then
+        PATH=$item/vendor/bin:$PATH
+        break
+    fi
+done
+
+# Node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+
+# autojump
+PATH=~/.local/bin:~/.autojump/bin:$PATH
+
+# Editor
+export EDITOR KUBE_EDITOR
+if command -v nvim &> /dev/null; then
+    EDITOR=$(command -v nvim)
+else
+    EDITOR=vi
+fi
+KUBE_EDITOR=$EDITOR
+
+# WSL
+if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then
+    WIN32_USERPROFILE=$(wslpath -m $USERPROFILE)
+    # https://devblogs.microsoft.com/commandline/share-environment-vars-between-wsl-and-windows/
+    # set windows environmant variable WSLENV as WT_SESSION:WT_PROFILE_ID:USERPROFILE/p:SCOOP/p
+
+    # VSCode
+    if [ -d "$USERPROFILE/AppData/Local/Programs/Microsoft VS Code/bin" ]; then
+        PATH="$USERPROFILE/AppData/Local/Programs/Microsoft VS Code/bin":$PATH
+    fi
+    # Scoop
+    if [ -z $SCOOP ]; then
+        SCOOP_HOME="$USERPROFILE/scoop"
+    else
+        SCOOP_HOME=$SCOOP
+    fi
+    WIN32_SCOOP_HOME=$(wslpath -m $SCOOP_HOME)
+fi
+

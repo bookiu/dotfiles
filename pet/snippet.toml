@@ -1,0 +1,17 @@
+[[snippets]]
+  description = "下载tar.gz文件并直接解压到指定目录"
+  command = "curl http://url.com/x.tgz | tar zx --strip 1 -C /tmp/prog"
+  tag = ["shell"]
+  output = ""
+
+[[snippets]]
+  description = "按行读取变量中的字符串"
+  command = "while IFS= read -r line; do echo $line; done < <(echo $lines)"
+  tag = ["shell"]
+  output = ""
+
+[[snippets]]
+  description = "修改alpine mirror库"
+  command = "sed -i 's#dl-cdn.alpinelinux.org#mirrors.tencent.com#g' /etc/apk/repositories"
+  tag = ["shell", "alpine"]
+  output = ""

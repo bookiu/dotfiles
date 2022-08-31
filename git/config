@@ -1,0 +1,48 @@
+[core]
+    excludesfile = ~/.config/git/gitignore
+    eol = lf
+    autocrlf = input
+    preloadIndex = true
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    type = cat-file -t
+    dump = cat-file -p
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[gui]
+    encoding = utf-8
+[i18n]
+    commitencoding = utf-8
+[commit]
+    template = ~/.config/git/gitmessage
+#[http]
+#    proxy = x.co.com:1234
+[filter "lfs"]
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
+[credential]
+    helper = cache
+[init]
+    defaultBranch = master
+[oh-my-zsh]
+    hide-status = 1
+    hide-dirty = 1
+[url "git@example.com:"]
+    insteadOf = http://example.com/
+[includeIf "gitdir:~/Projects/Private/"]
+    path = ~/.config/git/private.user
+[includeIf "gitdir:~/Projects/Tencent/"]
+    path = ~/.config/git/tencent.user
+[include]
+    path = ~/.config/git/config.local
+

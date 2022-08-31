@@ -1,0 +1,381 @@
+" Location: $HOME/.vimrc
+" =======================================================
+" General functions 相关函数
+" =======================================================
+function! OSX()
+    return has('macunix')
+endfunction
+function! LINUX()
+    return has('unix') && !has('macunix') && !has('win32unix')
+endfunction
+function! WINDOWS()
+    return  (has('win16') || has('win32') || has('win64'))
+endfunction
+if WINDOWS()
+    let $VIMHOME = $VIM."/vimfiles"
+else
+    let $VIMHOME = $HOME."/.vim"
+endif
+
+
+" =======================================================
+" Initial Plugin 加载插件
+" =======================================================
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" :PlugInstall to install plugins
+if !empty(glob($VIMHOME . "/autoload/plug.vim"))
+    call plug#begin()
+    Plug 'tomasr/molokai'
+    " 可以快速对齐的插件
+    Plug 'junegunn/vim-easy-align'
+    " 自动补全括号的插件，包括小括号，中括号，以及花括号
+    Plug 'Raimondi/delimitMate'
+    " 空格处理
+    Plug 'ntpeters/vim-better-whitespace'
+    " 代码自动完成
+    Plug 'Valloric/YouCompleteMe'
+    " 代码缩进线
+    Plug 'Yggdroot/indentLine'
+    " 状态栏
+    Plug 'vim-airline/vim-airline'
+    " 侧边栏
+    Plug 'scrooloose/nerdtree'
+    " 编辑器文本设置
+    Plug 'editorconfig/editorconfig-vim'
+    " finder
+    "Plug 'ctrlpvim/ctrlp.vim'
+    """"""""""
+    " Golang
+    """"""""""
+    " go 主要插件
+    Plug 'fatih/vim-go', { 'tag': '*' }
+    " go 中的代码追踪，输入 gd 就可以自动跳转
+    Plug 'dgryski/vim-godef'
+    """"""""""
+    " Nginx
+    """"""""""
+    Plug 'chr4/nginx.vim'
+
+    call plug#end()
+endif
+
+" =======================================================
+" General Settings 基础设置
+" =======================================================
+" 关闭兼容模式
+set nocompatible
+" 修改leader键
+let mapleader = ','
+let g:mapleader = ','
+" 开启语法高亮
+syntax on
+" history存储容量
+set history=9000
+" 检测文件类型
+filetype on
+" 针对不同的文件类型采用不同的缩进格式
+filetype indent on
+" 允许插件
+filetype plugin on
+" 启动自动补全
+filetype plugin indent on
+" 文件修改之后自动载入。
+set autoread
+" 取消备份
+set nobackup
+" 关闭交换文件
+set noswapfile
+" ignore
+set wildignore=*.swp,*.bak,*.pyc,*.class,.svn,.git,*.o,*~,*.pyc,*.class
+" 突出显示当前行和列
+"set cursorcolumn
+set cursorline
+" 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制
+" 好处：误删什么的，如果以前屏幕打开，可以找回
+"set t_ti= t_te=
+" 图形界面下开启鼠标支持
+if has('gui_running')
+    set mouse=a
+else
+    set mouse-=a
+endif
+" 打字时隐藏鼠标指针
+set mousehide
+" 去掉输入错误的提示声音
+set title                " change the terminal's title
+set novisualbell         " don't beep
+set noerrorbells         " don't beep
+set t_vb=
+set tm=500
+" Remember info about open buffers on close"
+set viminfo^=%
+" For regular expressions turn magic on
+set magic
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+"set whichwrap+=<,>,h,l
+" always jump to the last cursor position
+au BufReadPost * if line("'\"") > 0 && line("'\"") < line("$") | exe "normal g'\"" | endif
+" Ruler
+set colorcolumn=120
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+" =======================================================
+" Display Settings 展示/排版等界面格式设置
+" =======================================================
+" 显示当前的行号列号
+set number
+" 取消换行
+"set nowrap
+" 括号配对情况,跳转并高亮一下匹配的括号
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set matchtime=2
+" 设置文内智能搜索提示
+" 高亮search命中的文本。
+set hlsearch
+" 打开增量搜索模式,随着键入即时搜索
+set incsearch
+" 搜索时忽略大小写
+set ignorecase
+" 有一个或以上大写字母时仍大小写敏感
+set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
+" 代码折叠
+set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+set foldmethod=indent
+set foldlevel=99
+
+" 缩进配置
+set smartindent   " Smart indent
+set autoindent    " 打开自动缩进
+
+" tab相关变更
+set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=4  " 每一次缩进对应的空格数
+set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个 空格
+set expandtab     " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
+set shiftround    " 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
+
+" A buffer becomes hidden when it is abandoned
+set hidden
+set wildmode=full
+set ttyfast
+
+" 00x增减数字时使用十进制
+set nrformats=
+
+" 在上下移动光标时，光标的上方或下方至少会保留显示的行数
+set scrolloff=7
+" 相对行号
+set relativenumber number
+au FocusLost * :set norelativenumber number
+au FocusGained * :set relativenumber
+" 插入模式下用绝对行号, 普通模式下用相对
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber number
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+
+" =======================================================
+" FileEncode Settings 文件编码,格式
+" =======================================================
+if has("multi_byte")
+    " Vim内部使用的字符编码方式
+    set encoding=utf-8
+    " Vim对文件存档时候使用的编码方式
+    set fileencoding=utf-8
+    " Vim编码的自动识别，注意编码类型的顺序
+    set fileencodings=ucs-bom,utf-8,gb2312,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+    " 下面这句只影响普通模式 (非图形界面) 下的 Vim。
+    set termencoding=utf-8
+    " 不使用 Unicode 签名
+    set nobomb
+    " 如遇Unicode值大于255的文本，不必等到空格再折行。
+    set formatoptions+=m
+    " 合并两行中文时，不在中间加空格：
+    set formatoptions+=B
+    " 默认文件编码
+    set ffs=unix,dos,mac
+    " menu language
+    if has("gui_running")
+        language message zh_CN.UTF-8
+        set langmenu=zh_CN.UTF-8
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+    endif
+endif
+
+
+" =======================================================
+" Theme Settings  主题设置
+" =======================================================
+if has("gui_running")
+    " font
+    set guifont=Monaco:h10
+    if has("gui_gtk2")
+        set guifont=Monaco\ 12, Monospace\ 12
+    endif
+    " colorscheme
+    silent! colorscheme molokai
+    " 关闭菜单栏和工具栏
+    " --set guioptions-=m 隐藏菜单栏
+    " --set guioptions-=T 隐藏工具栏
+    " --set guioptions-=L 隐藏左侧滚动条
+    " --set guioptions-=r 隐藏右侧滚动条
+    " --set guioptions-=b 隐藏底部滚动条
+    " --set showtabline=0 隐藏Tab栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions+=e
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=L " 隐藏左侧滚动条
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    " 启动窗口大小
+    set lines=41 columns=177
+    " 启动位置
+    winpos 40 0
+    if LINUX()
+        " 启动窗口大小
+        set lines=30 columns=99
+        " 启动位置
+        winpos 125 0
+        " 修正unix下鼠标和选择的行为
+        set  selectmode=key
+        set mousemodel=popup
+        set keymodel=startsel,stopsel
+        set selection=exclusive
+        " 修正鼠标右键菜单行为
+        noremap <RightMouse> <Nop>
+        noremap <RightRelease> <RightMouse>
+        noremap! <RightMouse> <Nop>
+        noremap! <RightRelease> <RightMouse>
+    elseif OSX()
+        set guifont=Monaco:h12
+    endif
+endif
+
+" vim颜色主题
+if !has('gui_running')
+    set background=dark
+    " silent! colorscheme molokai
+    silent! colorscheme molokai
+    set t_Co=256
+endif
+
+
+" =======================================================
+" 状态栏
+" =======================================================
+if !exists("g:loaded_airline")
+    set ruler
+    set rulerformat=%-14.(%l,%c%V%)\ %P
+    " 在状态栏显示正在输入的命令
+    set showcmd
+    " 左下角显示当前vim模式
+    set showmode
+    " 图形界面的状态栏
+    set statusline=
+    set statusline+=%1*
+    set statusline+=\ %t%m%r%h%y
+    set statusline+=\ %2*
+    set statusline+=\ %w[%<%.36(%{getcwd()}%)]
+    set statusline+=\ %3*
+    set statusline+=%=
+    set statusline+=%6*
+    set statusline+=\ [%{&fileformat},%{&fileencoding}%{(exists(\"+bomb\")\ &&\ &bomb)?\"-BOM\":\"\"}]
+    set statusline+=\ %l/%L
+    set statusline+=\ %=\[%P]
+    set statusline+=\ " 添加一个空格
+    " 命令行（在状态行下）的高度，默认为1，这里是2
+    set laststatus=2
+
+    " 防止错误整行标红导致看不清
+    highlight clear SpellBad
+    highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+    highlight clear SpellCap
+    highlight SpellCap term=underline cterm=underline
+    highlight clear SpellRare
+    highlight SpellRare term=underline cterm=underline
+    highlight clear SpellLocal
+    highlight SpellLocal term=underline cterm=underline
+    " 自定义用户颜色
+    hi User1 ctermfg=15 ctermbg=37 guifg=#ffffff guibg=#03acb1
+    hi User2 ctermfg=15 ctermbg=30 guifg=#ffffff guibg=#028785
+    hi User3 ctermfg=15 ctermbg=35 guifg=#ffffff guibg=#04b15e
+    hi User4 ctermfg=15 ctermbg=70 guifg=#ffffff guibg=#83b901
+    hi User5 ctermfg=15 ctermbg=214 guifg=#ffffff guibg=#fd8300
+    hi User6 ctermfg=15 ctermbg=214 guifg=#ffffff guibg=#16528e
+
+    "设置标记一列的背景颜色和数字一行颜色一致
+    hi! link SignColumn   LineNr
+    hi! link ShowMarksHLl DiffAdd
+    hi! link ShowMarksHLu DiffChange
+endif
+
+" NERDTree ================================
+" Toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
+" 显示行号
+"let NERDTreeShowLineNumbers=1
+let NERDTreeAutoCenter=1
+" 是否显示隐藏文件
+let NERDTreeShowHidden=1
+" 设置宽度
+"let NERDTreeWinSize=31
+" 忽略文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git']
+" 显示书签列表
+let NERDTreeShowBookmarks=1
+" Open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" Close vim if the only window left open is a NERDTree
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" NERDTree plugin nerdtree-git-plugin ==============
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+" vim-better-whitespace
+autocmd BufWritePre * StripWhitespace
+
+" indentLine
+au FileType json let g:indentLine_setConceal = 0
+
+" delimitMate
+" python docstring ", 特别有用
+au FileType python let b:delimitMate_nesting_quotes = ['"']
+
+" 关闭某些类型文件的自动补全
+"au FileType mail let b:delimitMate_autoclose = 0
+" nginx.vim
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*,~/nginx_conf/*.conf,~/nginx_conf/*.conf.disabled if &ft == '' | setfiletype nginx | endif
+
+" vim-go
+let g:go_fmt_command = "goimports"

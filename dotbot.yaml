@@ -1,0 +1,29 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- create:
+    - ~/.config
+
+- link:
+    ~/.zshrc:
+      path: zsh/zshrc
+      force: true
+    ~/.p10k.zsh: powerlevel10k/config.zsh
+    ~/.config/zsh: zsh
+    ~/.ssh: ssh
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.gitconfig: git/config
+    ~/.config/git: git
+    ~/.config/i3: i3
+    ~/.config/nvim: nvim
+    ~/.ideavimrc: ideavim/ideavimrc
+    ~/.config/wezterm: wezterm
+    ~/.config/pip: pip
+    ~/.config/polybar: polybar
+    ~/.config/rofi: rofi
+    ~/.config/terminator: terminator
+    ~/.config/composer: composer
+    ~/.config/cheat: cheat
+    ~/.config/pet: pet
