@@ -7,3 +7,6 @@
 [submodule "zsh/themes/powerlevel10k"]
     path = zsh/themes/powerlevel10k
     url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh/plugins/autojump"]
+    path = zsh/plugins/autojump
+    url = https://github.com/wting/autojump.git
