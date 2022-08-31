@@ -7,6 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin/:/sbin
 # set XDG_CONFIG_HOME
 if [ -z "${XDG_CONFIG_HOME-}" ]; then
     XDG_CONFIG_HOME="${HOME}/.config"
@@ -95,8 +96,7 @@ plugins=(
     zsh-autosuggestions
     autojump
     vi-mode
-    emoji
-    mydb
+    pyenv poetry
 )
 # docker plugin
 if which docker &> /dev/null; then
@@ -145,7 +145,6 @@ export LC_ALL=en_US.UTF-8
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh && autoload -U compinit && compinit -u
 
 # Reset PATH environment
-PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin/:/sbin
 if [[ "$OSTYPE" = darwin* ]]; then
     PATH=$PATH:/Library/Apple/usr/bin:/Library/Apple/bin
 fi
