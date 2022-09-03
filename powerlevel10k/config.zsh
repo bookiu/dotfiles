@@ -881,14 +881,21 @@
   # Context format when in SSH without privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
   # Default context format (no privileges, no SSH): user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='[%m]'
+  local context_content="["
+  if [[ `uname` == "Darwin" ]]; then
+    context_content="${context_content}\uF179$s "
+  elif [[ `uname` == "Linux" ]]; then
+    context_content="${context_content}\uF17C$s"
+  fi
+  context_content="${context_content}%m]"
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE=$context_content
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
   #typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
   #
-  typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_TEMPLATE='[%m]'
-  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='[ %m]'
+  typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_TEMPLATE=$context_content
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='[  %m]'
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
