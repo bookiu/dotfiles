@@ -881,11 +881,14 @@
   # Context format when in SSH without privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
   # Default context format (no privileges, no SSH): user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='[%m]'
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
-  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+  #typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+  #
+  typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_TEMPLATE='[%m]'
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='[ %m]'
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
@@ -1645,13 +1648,6 @@
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
   (( ! $+functions[p10k] )) || p10k reload
 }
-
-typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='[%m]'
-typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_TEMPLATE='[%m]'
-typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='[ %m]'
-#typeset -g POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='RRR'
-#typeset -g POWERLEVEL9K_CONTEXT_SUDO_TEMPLATE='DDD'
-#typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='DDD'
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # Tell `p10k configure` which file it should overwrite.
