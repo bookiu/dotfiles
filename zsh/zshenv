@@ -28,6 +28,9 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 #export HOMEBREW_FORCE_BREWED_CURL=1
 
 # tmux
+# enable Ansi Colors in iTerm2.
+# https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2
+export CLICOLOR=1
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
 else
