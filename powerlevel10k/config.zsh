@@ -885,7 +885,7 @@
   if [[ `uname` == "Darwin" ]]; then
     context_content="${context_content}\uF179$s "
   elif [[ `uname` == "Linux" ]]; then
-    context_content="${context_content}\uF17C$s"
+    context_content="${context_content}\uF17C$s "
   fi
   context_content="${context_content}%m]"
   typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE=$context_content
