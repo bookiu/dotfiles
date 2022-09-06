@@ -96,7 +96,7 @@ plugins=(
     zsh-autosuggestions
     autojump
     vi-mode
-    pyenv poetry
+    poetry
 )
 # docker plugin
 if which docker &> /dev/null; then

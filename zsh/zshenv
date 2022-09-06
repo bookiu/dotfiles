@@ -26,6 +26,28 @@ export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export HOMEBREW_NO_AUTO_UPDATE=1
 #export HOMEBREW_FORCE_BREWED_CURL=1
+# fix linuxbrew under vscode which auto set HOMEBREW_PREFIX env
+if [ -n "$HOMEBREW_PREFIX" ] && ! command -v brew &> /dev/null; then
+    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+fi
+
+# pyenv
+export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
+if ! type pyenv > /dev/null && [ -f "${PYENV_ROOT}/bin/pyenv" ]; then
+    export PATH="${PYENV_ROOT}/bin:${PATH}"
+fi
+# Lazy load pyenv
+if type pyenv > /dev/null; then
+    export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
+    function pyenv() {
+        unset -f pyenv
+        eval "$(command pyenv init -)"
+        if [[ -n "${ZSH_PYENV_LAZY_VIRTUALENV}" ]]; then
+            eval "$(command pyenv virtualenv-init -)"
+        fi
+        pyenv $@
+    }
+fi
 
 # tmux
 # enable Ansi Colors in iTerm2.
