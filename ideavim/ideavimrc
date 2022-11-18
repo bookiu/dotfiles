@@ -1,29 +1,57 @@
 let mapleader = " "
 
-" search for actions: :actionlist <patter>
-
-set number                        " line numbers
-
-set hlsearch                      " highlight search occurrences
+""" Common settings ------------------------
+set showmode
+set so=5
 set ignorecase                    " ignore case in search patterns
-set smartcase                     " no ignore case when pattern is uppercase
 set incsearch                     " show search results while typing
+set hlsearch                      " highlight search occurrences
+set smartcase                     " no ignore case when pattern is uppercase
 set wrapscan                      " searches wrap around the end of the file
+set number                        " show line number
 
 set gdefault                      " substitute all occurrences in line per default
 set history=10000                 " keep x lines of command line history
 set scrolloff=5 sidescrolloff=10  " keep some lines before and after the cursor visible
-"set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
 
+""" Idea specific settings -----------------
+"set clipboard=unnamedplus,unnamed,ideaput
+set ideajoin
+set ideastatusicon=gray
+
+""" Mapping -------------------------------
 " edit ideavim config
 nnoremap <leader>vv :e ~/.ideavimrc<CR>
 nnoremap <leader>vr :source ~/.ideavimrc<CR>
-
 " copy to system clipboard
 noremap <leader>y "+y
-
-"
+" copy
 map <leader>a :action $SelectAll<CR>
 map <leader>c :action $Copy<CR>
-map <leader>v :action $Paste<CR>
+map <leader>v :actio  $Paste<CR>
 map <leader>x :action $Cut<CR>
+
+""" Plugins -------------------------------
+Plug 'preservim/nerdtree'
+map <c-t> :NERDTree<CR>
+Plug 'easymotion/vim-easymotion'
+
+" https://github.com/JetBrains/ideavim/wiki/Emulated-plugins#multiple-cursors
+" https://stackoverflow.com/questions/55202799/ideavim-multi-cursor-usage
+Plug 'terryma/vim-multiple-cursors'
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+nmap <S-C-n> <Plug>AllWholeOccurrences
+xmap <S-C-n> <Plug>AllWholeOccurrences
+nmap g<S-C-n> <Plug>AllOccurrences
+xmap g<S-C-n> <Plug>AllOccurrences
+
