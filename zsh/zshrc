@@ -130,6 +130,10 @@ unsetopt correct_all
 unset MAILCHECK
 # disable history share between sessions
 unsetopt share_history
+# ignore dump command
+setopt HIST_IGNORE_ALL_DUPS
+# ignore command start with space
+setopt HIST_IGNORE_SPACE
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
