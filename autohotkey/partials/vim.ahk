@@ -12,8 +12,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
         Send {Blind}{Esc Down}{Esc Up}
         return
     }
-    Send, {Esc}
-    return
 Return
 
 ToggleToEnglish() {
