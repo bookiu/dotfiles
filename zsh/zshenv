@@ -31,6 +31,20 @@ if [ -n "$HOMEBREW_PREFIX" ] && ! command -v brew &> /dev/null; then
     eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
+# conda
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/data/home/yaxinliu/rootfs/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/data/home/yaxinliu/rootfs/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/data/home/yaxinliu/rootfs/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/data/home/yaxinliu/rootfs/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
 # pyenv
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 if ! type pyenv > /dev/null && [ -f "${PYENV_ROOT}/bin/pyenv" ]; then
