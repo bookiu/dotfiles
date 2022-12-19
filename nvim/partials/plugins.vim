@@ -15,7 +15,7 @@ Plug 'arcticicestudio/nord-vim'
 "Plug 'ueaner/molokai'
 
 " Syntax
-Plug 'isobit/vim-caddyfile'
+"Plug 'isobit/vim-caddyfile'
 
 " Go Language
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
