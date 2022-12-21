@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;Esc 映射ESC
 ~Esc::
     ; 如果是 IDEA 先切换输入法、再按ESC
-    if WinActive("ahk_exe pycharm64.exe") or WinActive("ahk_exe goland64.exe") or WinActive("ahk_exe Code.exe") {
+    if WinActive("ahk_exe pycharm64.exe") or WinActive("ahk_exe goland64.exe") or WinActive("ahk_exe Code.exe") or WinActive("ahk_exe wezterm-gui.exe") or WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe datagrip64.exe") {
         Send {Blind}{Esc Down}{Esc Up}
         ToggleToEnglish()
         Send {Blind}{Esc Down}{Esc Up}
