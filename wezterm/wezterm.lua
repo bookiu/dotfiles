@@ -16,21 +16,68 @@ local mouse_bindings = {
     },
 }
 
+colors = {
+    foreground = "#f8f8f2",
+    background = "#282a36",
+    cursor_bg = "#f8f8f2",
+    cursor_fg = "#282a36",
+    cursor_border = "#f8f8f2",
+    selection_fg = "#282a36",
+    selection_bg = "#44475a",
+    scrollbar_thumb = "#44475a",
+    split = "#bd93f9",
+    ansi = {"#21222C", "#FF5555", "#50FA7B", "#F1FA8C", "#BD93F9", "#FF79C6", "#8BE9FD", "#F8F8F2"},
+    brights = {"#6272A4", "#FF6E6E", "#69FF94", "#FFFFA5", "#D6ACFF", "#FF92DF", "#A4FFFF", "#FFFFFF"},
+    indexed = {
+        [136] = "#44475A"
+    },
+    compose_cursor = "#FFB86C",
+    tab_bar = {
+        background = "#282a36",
+        active_tab = {
+            bg_color = "#bd93f9",
+            fg_color = "#282a36",
+            intensity = "Normal",
+            underline = "None",
+            italic = false,
+            strikethrough = false
+        },
+        inactive_tab = {
+            bg_color = "#282a36",
+            fg_color = "#f8f8f2"
+        },
+        inactive_tab_hover = {
+            bg_color = "#6272a4",
+            fg_color = "#f8f8f2",
+            italic = true
+        },
+        new_tab = {
+            bg_color = "#282a36",
+            fg_color = "#f8f8f2"
+        },
+        new_tab_hover = {
+            bg_color = "#ff79c6",
+            fg_color = "#f8f8f2",
+            italic = true
+        }
+    }
+}
+
 
 local config = {
     -- editor
-    -- font = wezterm.wezterm.font_with_fallback({
-    --     "FiraCode NF",
-    --     "JetBrains Mono",
-    --     "Cascadia Code",
-    --     "DejaVu Sans Mono",
-    --     "Hack",
-    --     "Source Code Pro",
-    --     "Monaco",
-    --     "Consolas",
-    --     "Lucida Console",
-    -- }),
-    font = wezterm.font("FiraCode NF", {weight=420, stretch="Normal", style=Normal}),
+    --font = wezterm.font_with_fallback({
+    --    {family="FiraCode NF", weight="Bold"},
+    --    "JetBrains Mono",
+    --    "Cascadia Code",
+    --    "DejaVu Sans Mono",
+    --    "Hack",
+    --    "Source Code Pro",
+    --    "Monaco",
+    --    "Consolas",
+    --    "Lucida Console",
+    --}),
+    font = wezterm.font("FiraCode NF", {weight="Regular", stretch="Normal", style="Normal"}),
     font_size = 13,
     check_for_updates = false,
     color_scheme = "Dracula",
@@ -45,16 +92,12 @@ local config = {
         saturation = 1.0,
         brightness = 1.0,
     },
-    colors = {
-        tab_bar = {
-            inactive_tab_edge = "#575757"
-        }
-    },
+    colors = colors,
 
     -- window
     window_background_opacity = 0.9,
     -- window_background_image = wezterm.relative_path("background.jpg"),
-    -- window_background_image_hsb = 
+    -- window_background_image_hsb =
     -- window_background_gradient = {},
     window_padding = {
         left = '0cell',
@@ -72,6 +115,7 @@ local config = {
 -- mac specific config
 if wezterm.target_triple == "x86_64-apple-darwin" then
     config.default_prog = {"zsh", "-l"}
+    config.font_size = 16
 end
 
 -- windows specific config
