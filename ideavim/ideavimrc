@@ -1,3 +1,4 @@
+nmap <Space> <Nop>
 let mapleader = " "
 
 """ Common settings ------------------------
@@ -13,6 +14,9 @@ set number                        " show line number
 set gdefault                      " substitute all occurrences in line per default
 set history=10000                 " keep x lines of command line history
 set scrolloff=5 sidescrolloff=10  " keep some lines before and after the cursor visible
+"set relativenumber number
+set visualbell                    " no beeps
+set noerrrorbells
 
 """ Idea specific settings -----------------
 "set clipboard=unnamedplus,unnamed,ideaput
@@ -23,6 +27,8 @@ set ideastatusicon=gray
 " edit ideavim config
 nnoremap <leader>vv :e ~/.ideavimrc<CR>
 nnoremap <leader>vr :source ~/.ideavimrc<CR>
+noremap <leader>r <ESC>:source ~/.ideavimrc<CR>
+
 " copy to system clipboard
 noremap <leader>y "+y
 " copy
@@ -34,11 +40,23 @@ map <leader>x :action $Cut<CR>
 """ Plugins -------------------------------
 Plug 'preservim/nerdtree'
 map <c-t> :NERDTree<CR>
+
+" Easymotion
 Plug 'easymotion/vim-easymotion'
+set easymotion
+map <leader><leader> <Plug>(easymotion-prefix)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" Use upper target labels and type as a lower case
+let g:EasyMotion_use_upper = 0
+
+" Sneak
+"set sneak
 
 " https://github.com/JetBrains/ideavim/wiki/Emulated-plugins#multiple-cursors
 " https://stackoverflow.com/questions/55202799/ideavim-multi-cursor-usage
-Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-multiple-cursors'
+set multiple-cursors
 " Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
 nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence

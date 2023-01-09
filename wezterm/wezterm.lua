@@ -78,12 +78,14 @@ local config = {
     --    "Lucida Console",
     --}),
     font = wezterm.font("FiraCode NF", {weight="Regular", stretch="Normal", style="Normal"}),
+    font_antialias = "Greyscale",
     font_size = 13,
     check_for_updates = false,
     color_scheme = "Dracula",
 
     -- layout
-    tab_bar_at_bottom = false,
+    tab_bar_at_bottom = true,
+    hide_tab_bar_if_only_one_tab = false,
 
     -- preferenc
     -- tab
@@ -112,15 +114,26 @@ local config = {
     launch_menu = {}
 }
 
+local is_linux = wezterm.target_triple == "x86_64-unknown-linux-gnu"
+local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
+local is_mac = wezterm.target_triple == "x86_64-apple-darwin"
+
 -- mac specific config
-if wezterm.target_triple == "x86_64-apple-darwin" then
+if is_mac then
     config.default_prog = {"zsh", "-l"}
     config.font_size = 16
 end
 
 -- windows specific config
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-    config.default_prog = {"wsl.exe", "-d", "Arch", "-u", "yaxin"}
+if is_windows then
+    config.default_domain = "WSL:Arch"
+    config.default_prog = {"wsl.exe"}
+
+    local wsl_domains = wezterm.default_wsl_domains()
+    for _, dom in ipairs(wsl_domains) do
+        dom.default_cwd = "~"
+    end
+    --config.default_cwd = "\\\\wsl$\\Arch\\home\\yaxin"
 
     table.insert(config.launch_menu, { label = "Powershell 7", args = {"C:/Program Files/PowerShell/7/pwsh.exe"} })
 end
