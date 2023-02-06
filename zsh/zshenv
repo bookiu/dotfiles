@@ -46,7 +46,7 @@ for conda_root in $anacondas; do
                 export PATH="$conda_root/bin:$PATH"
             fi
         fi
-        unset __conda_setup 
+        unset __conda_setup
         break
     fi
 done
@@ -145,4 +145,12 @@ if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then
     fi
     WIN32_SCOOP_HOME=$(wslpath -m $SCOOP_HOME)
 fi
+
+# Disable ctrl+d logout
+# https://superuser.com/questions/1315380/ctrl-d-not-exiting-bash-after-sourcing-bashrc
+#if shopt -q login_shell;then
+#    IGNOREEOF=10
+#else
+#    IGNOREEOF=0
+#fi
 
