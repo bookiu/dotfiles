@@ -146,11 +146,3 @@ if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then
     WIN32_SCOOP_HOME=$(wslpath -m $SCOOP_HOME)
 fi
 
-# Disable ctrl+d logout
-# https://superuser.com/questions/1315380/ctrl-d-not-exiting-bash-after-sourcing-bashrc
-#if shopt -q login_shell;then
-#    IGNOREEOF=10
-#else
-#    IGNOREEOF=0
-#fi
-
