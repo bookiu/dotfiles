@@ -74,7 +74,7 @@ fi
 # enable Ansi Colors in iTerm2.
 # https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2
 export CLICOLOR=1
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+if [ -e /usr/share/terminfo/x/xterm-256color -o -e /lib/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
 elif [[ `uname` == "Darwin" ]]; then
     export TERM='xterm-256color'
