@@ -50,7 +50,8 @@ local config = {
     --font_antialias = "Greyscale",
     font_size = 14,
     check_for_updates = false,
-    color_scheme = "Dracula (Official)",
+    --color_scheme = "Dracula (Official)",
+    color_scheme = "nord",
 
     -- layout
     tab_bar_at_bottom = false,
