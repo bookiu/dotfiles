@@ -1,5 +1,13 @@
 local wezterm = require 'wezterm';
 
+local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+
+
+local is_linux = wezterm.target_triple == "x86_64-unknown-linux-gnu"
+local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
+local is_mac = wezterm.target_triple == "x86_64-apple-darwin"
+
 local mouse_bindings = {
     -- 右键粘贴
     {
@@ -16,53 +24,13 @@ local mouse_bindings = {
     },
 }
 
-colors = {
-    foreground = "#f8f8f2",
-    background = "#282a36",
-    cursor_bg = "#f8f8f2",
-    cursor_fg = "#282a36",
-    cursor_border = "#f8f8f2",
-    selection_fg = "#282a36",
-    selection_bg = "#44475a",
-    scrollbar_thumb = "#44475a",
-    split = "#bd93f9",
-    ansi = {"#21222C", "#FF5555", "#50FA7B", "#F1FA8C", "#BD93F9", "#FF79C6", "#8BE9FD", "#F8F8F2"},
-    brights = {"#6272A4", "#FF6E6E", "#69FF94", "#FFFFA5", "#D6ACFF", "#FF92DF", "#A4FFFF", "#FFFFFF"},
-    indexed = {
-        [136] = "#44475A"
+local hotkey_bindings = {
+    {
+        key = "p",
+        mods = "CMD",
+        action = wezterm.action.ShowLauncher,
     },
-    compose_cursor = "#FFB86C",
-    tab_bar = {
-        background = "#282a36",
-        active_tab = {
-            bg_color = "#bd93f9",
-            fg_color = "#282a36",
-            intensity = "Normal",
-            underline = "None",
-            italic = false,
-            strikethrough = false
-        },
-        inactive_tab = {
-            bg_color = "#282a36",
-            fg_color = "#f8f8f2"
-        },
-        inactive_tab_hover = {
-            bg_color = "#6272a4",
-            fg_color = "#f8f8f2",
-            italic = true
-        },
-        new_tab = {
-            bg_color = "#282a36",
-            fg_color = "#f8f8f2"
-        },
-        new_tab_hover = {
-            bg_color = "#ff79c6",
-            fg_color = "#f8f8f2",
-            italic = true
-        }
-    }
 }
-
 
 local config = {
     -- editor
@@ -78,14 +46,38 @@ local config = {
     --    "Lucida Console",
     --}),
     font = wezterm.font("FiraCode NF", {weight="Regular", stretch="Normal", style="Normal"}),
-    font_antialias = "Greyscale",
-    font_size = 13,
+    harfbuzz_features = {"calt=0", "clig=0", "liga=0"},
+    --font_antialias = "Greyscale",
+    font_size = 14,
     check_for_updates = false,
-    color_scheme = "Dracula",
+    color_scheme = "Dracula (Official)",
 
     -- layout
-    tab_bar_at_bottom = true,
+    tab_bar_at_bottom = false,
+    use_fancy_tab_bar = false,
     hide_tab_bar_if_only_one_tab = false,
+    -- tab_bar_style = {
+    --     active_tab_left = wezterm.format {
+    --         { Background = { Color = '#0b0022' } },
+    --         { Foreground = { Color = '#2b2042' } },
+    --         { Text = SOLID_LEFT_ARROW },
+    --     },
+    --     active_tab_right = wezterm.format {
+    --         { Background = { Color = '#0b0022' } },
+    --         { Foreground = { Color = '#2b2042' } },
+    --         { Text = SOLID_RIGHT_ARROW },
+    --     },
+    --     inactive_tab_left = wezterm.format {
+    --         { Background = { Color = '#0b0022' } },
+    --         { Foreground = { Color = '#1b1032' } },
+    --         { Text = SOLID_LEFT_ARROW },
+    --     },
+    --     inactive_tab_right = wezterm.format {
+    --         { Background = { Color = '#0b0022' } },
+    --         { Foreground = { Color = '#1b1032' } },
+    --         { Text = SOLID_RIGHT_ARROW },
+    --     },
+    -- },
 
     -- preferenc
     -- tab
@@ -108,25 +100,28 @@ local config = {
         bottom = '0.5cell',
     },
 
+    -- hotkey
+    keys = hotkey_bindings,
     -- mouse
     mouse_bindings = mouse_bindings,
 
     launch_menu = {}
 }
 
-local is_linux = wezterm.target_triple == "x86_64-unknown-linux-gnu"
-local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
-local is_mac = wezterm.target_triple == "x86_64-apple-darwin"
+table.insert(config.launch_menu, { label = "DevCloud.Private", args = {"ssh", "devcloud.private"} })
+table.insert(config.launch_menu, { label = "DevCloud.Domain", args = {"ssh", "devcloud.domain"} })
+table.insert(config.launch_menu, { label = "DevCloud.Hellerzhang", args = {"ssh", "devcloud.hellerzhang"} })
+table.insert(config.launch_menu, { label = "DevCloud.SSL", args = {"ssh", "devcloud.ssl"} })
 
 -- mac specific config
 if is_mac then
     config.default_prog = {"zsh", "-l"}
-    config.font_size = 16
+    config.font_size = 17
 end
 
 -- windows specific config
 if is_windows then
-    config.default_domain = "WSL:Arch"
+    config.default_domain = "WSL:Debian"
     config.default_prog = {"wsl.exe"}
 
     local wsl_domains = wezterm.default_wsl_domains()
@@ -139,7 +134,7 @@ if is_windows then
 end
 
 -- linux specific config
-if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+if is_linux then
     config.default_prog = {"zsh", "-l"}
 end
 
