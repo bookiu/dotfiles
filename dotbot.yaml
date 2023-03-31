@@ -20,6 +20,7 @@
     ~/.config/nvim: nvim
     ~/.ideavimrc: ideavim/ideavimrc
     ~/.config/wezterm: wezterm
+    ~/.config/alacritty: alacritty
     ~/.config/pip: pip
     ~/.config/polybar: polybar
     ~/.config/rofi: rofi
