@@ -33,7 +33,7 @@ fi
 
 # conda
 # !! Contents within this block are managed by 'conda init' !!
-anacondas=("/usr/local/anaconda3" "$HOME/rootfs/usr/local/anaconda3")
+anacondas=("/usr/local/anaconda3" "/opt/anaconda3")
 for conda_root in $anacondas; do
     if [[ -e $conda_root ]]; then
         __conda_setup="$($conda_root/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
@@ -51,24 +51,6 @@ for conda_root in $anacondas; do
     fi
 done
 unset anacondas conda_root
-
-# pyenv
-export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
-if ! type pyenv > /dev/null && [ -f "${PYENV_ROOT}/bin/pyenv" ]; then
-    export PATH="${PYENV_ROOT}/bin:${PATH}"
-fi
-# Lazy load pyenv
-if type pyenv > /dev/null; then
-    export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
-    function pyenv() {
-        unset -f pyenv
-        eval "$(command pyenv init -)"
-        if [[ -n "${ZSH_PYENV_LAZY_VIRTUALENV}" ]]; then
-            eval "$(command pyenv virtualenv-init -)"
-        fi
-        pyenv $@
-    }
-fi
 
 # tmux
 # enable Ansi Colors in iTerm2.
