@@ -118,6 +118,7 @@ table.insert(config.launch_menu, { label = "DevCloud.SSL", args = {"ssh", "devcl
 if is_mac then
     config.default_prog = {"zsh", "-l"}
     config.font_size = 17
+    config.font = wezterm.font("FiraCode Nerd Font Mono", {weight="Regular", stretch="Normal", style="Normal"})
 end
 
 -- windows specific config
