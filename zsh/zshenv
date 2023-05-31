@@ -74,7 +74,7 @@ if [ -f /usr/local/go/bin/go ]; then
     export GOROOT=/usr/local/go
     PATH=$GOROOT/bin:$PATH
 fi
-export GOPATH=$HOME/Projects/GoPath
+export GOPATH=$HOME/.local/gopath
 export GO111MODULE=on
 #export GOPROXY=https://goproxy.cn
 PATH=$GOPATH/bin:$PATH
