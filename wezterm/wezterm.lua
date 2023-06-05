@@ -1,4 +1,10 @@
 local wezterm = require 'wezterm';
+local utils = require("utils")
+local keybinds = require("keybinds")
+local colors = require("colors")
+local scheme = wezterm.get_builtin_color_schemes()["nord"]
+local gpus = wezterm.gui.enumerate_gpus()
+require("on")
 
 local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
@@ -7,6 +13,63 @@ local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
 local is_linux = wezterm.target_triple == "x86_64-unknown-linux-gnu"
 local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
 local is_mac = wezterm.target_triple == "x86_64-apple-darwin"
+
+local gpus = wezterm.gui.enumerate_gpus()
+
+-- /etc/ssh/sshd_config
+-- AcceptEnv TERM_PROGRAM_VERSION COLORTERM TERM TERM_PROGRAM WEZTERM_REMOTE_PANE
+-- sudo systemctl reload sshd
+
+---------------------------------------------------------------
+--- functions
+---------------------------------------------------------------
+-- selene: allow(unused_variable)
+---@diagnostic disable-next-line: unused-function, unused-local
+local function enable_wayland()
+    local wayland = os.getenv("XDG_SESSION_TYPE")
+    if wayland == "wayland" then
+        return true
+    end
+    return false
+end
+
+
+---------------------------------------------------------------
+--- Merge the Config
+---------------------------------------------------------------
+local function create_ssh_domain_from_ssh_config(ssh_domains)
+    if ssh_domains == nil then
+        ssh_domains = {}
+    end
+    for host, config in pairs(wezterm.enumerate_ssh_hosts()) do
+        table.insert(ssh_domains, {
+            name = host,
+            remote_address = config.hostname .. ":" .. config.port,
+            username = config.user,
+            multiplexing = "None",
+            assume_shell = "Posix",
+        })
+    end
+    return { ssh_domains = ssh_domains }
+end
+
+--- load local_config
+-- Write settings you don't want to make public, such as ssh_domains
+package.path = os.getenv("HOME") .. "/.local/share/wezterm/?.lua;" .. package.path
+local function load_local_config(module)
+    local m = package.searchpath(module, package.path)
+    if m == nil then
+        return {}
+    end
+    return dofile(m)
+    -- local ok, _ = pcall(require, "local")
+    -- if not ok then
+    -- 	return {}
+    -- end
+    -- return require("local")
+end
+
+local local_config = load_local_config("local")
 
 local mouse_bindings = {
     -- 右键粘贴
@@ -51,7 +114,13 @@ local config = {
     font_size = 14,
     check_for_updates = false,
     --color_scheme = "Dracula (Official)",
-    color_scheme = "nord",
+    color_scheme = "nordfox",
+    color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors/" },
+    selection_word_boundary = " \t\n{}[]()\"'`,;:│=&!%（）《》",
+
+    cursor_blink_ease_in = "Linear",
+    cursor_blink_ease_out = "Linear",
+    cursor_blink_rate = 1000,
 
     -- layout
     tab_bar_at_bottom = false,
@@ -87,7 +156,13 @@ local config = {
         saturation = 1.0,
         brightness = 1.0,
     },
-    colors = colors,
+    colors = {
+        tab_bar = colors.tab_bar,
+    },
+    use_fancy_tab_bar = false,
+    tab_bar_at_bottom = false,
+
+    enable_scroll_bar = true,
 
     -- window
     window_background_opacity = 0.9,
@@ -100,14 +175,29 @@ local config = {
         top = '0.5cell',
         bottom = '0.5cell',
     },
+    exit_behavior = "CloseOnCleanExit",
+    window_close_confirmation = "AlwaysPrompt",
+	adjust_window_size_when_changing_font_size = false,
 
     -- hotkey
     keys = hotkey_bindings,
     -- mouse
     mouse_bindings = mouse_bindings,
 
-    launch_menu = {}
+    launch_menu = {},
+
+    -- https://github.com/wez/wezterm/issues/2756
+    webgpu_preferred_adapter = gpus[1],
+    front_end = "WebGpu",
+
+    use_ime = true,
 }
+
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
+table.insert(config.hyperlink_rules, {
+    regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
+    format = "https://github.com/$1/$3",
+})
 
 table.insert(config.launch_menu, { label = "DevCloud.Private", args = {"ssh", "devcloud.private"} })
 table.insert(config.launch_menu, { label = "DevCloud.Domain", args = {"ssh", "devcloud.domain"} })
@@ -152,4 +242,9 @@ wezterm.on( "update-right-status", function(window)
     )
 end)
 
-return config
+-- merge local config
+local merged_config = utils.merge_tables(config, local_config)
+return utils.merge_tables(
+    merged_config, 
+    create_ssh_domain_from_ssh_config(merged_config.ssh_domains)
+)
