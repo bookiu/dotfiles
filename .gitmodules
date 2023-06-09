@@ -10,3 +10,4 @@
 [submodule "zsh/plugins/autojump"]
     path = zsh/plugins/autojump
     url = https://github.com/wting/autojump.git
+    ignore = dirty
