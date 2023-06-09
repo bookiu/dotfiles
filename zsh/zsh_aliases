@@ -17,6 +17,10 @@ if which nvim &> /dev/null; then
     alias vim=nvim
 fi
 
+sudos() {
+    command sudo su
+}
+
 # basic command
 #if which exa &> /dev/null; then
 #    alias ls='exa --icons'
