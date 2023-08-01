@@ -62,11 +62,14 @@ if [ -f /usr/local/go/bin/go ]; then
     export GOROOT=/usr/local/go
     PATH=$GOROOT/bin:$PATH
 fi
-for p in ("$HOME/Projects/Go" "$HOME/projects/go"); do
+gopaths=("$HOME/Projects/Go" "$HOME/projects/go")
+for p in $gopaths; do
     if [ -d $p ]; then
         export GOPATH=$p
+        break
     fi
 done
+unset gopaths p
 export GO111MODULE=on
 #export GOPROXY=https://goproxy.cn
 PATH=$GOPATH/bin:$PATH
