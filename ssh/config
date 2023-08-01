@@ -1,3 +1,5 @@
+Include ~/.orbstack/ssh/config
+
 Include ~/.ssh/config.d/*.config
 
 Host *
@@ -7,8 +9,12 @@ Host *
     ConnectTimeout 10
     ConnectionAttempts 3
     ServerAliveCountMax 120
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ~/.ssh/tencent
     GSSAPIAuthentication no
     ControlMaster auto
     ControlPath ~/.ssh/session_%h-%p-%r
     ControlPersist 48h
+
+# Fig ssh integration. Keep at the bottom of this file.
+Match all
+  Include ~/.fig/ssh
