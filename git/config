@@ -39,6 +39,10 @@
     hide-dirty = 1
 [url "git@example.com:"]
     insteadOf = http://example.com/
+[includeIf "gitdir:**/projects/private/"]
+    path = ~/.config/git/private.user
+[includeIf "gitdir:**/projects/tencent/"]
+    path = ~/.config/git/tencent.user
 [includeIf "gitdir:**/Projects/Private/"]
     path = ~/.config/git/private.user
 [includeIf "gitdir:**/Projects/Tencent/"]

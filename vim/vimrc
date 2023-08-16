@@ -27,6 +27,7 @@ endif
 if !empty(glob($VIMHOME . "/autoload/plug.vim"))
     call plug#begin()
     Plug 'tomasr/molokai'
+    Plug 'ghifarit53/tokyonight-vim'
     " 可以快速对齐的插件
     Plug 'junegunn/vim-easy-align'
     " 自动补全括号的插件，包括小括号，中括号，以及花括号
@@ -231,7 +232,7 @@ if has("gui_running")
         set guifont=Monaco\ 12, Monospace\ 12
     endif
     " colorscheme
-    silent! colorscheme molokai
+    silent! colorscheme tokyonight
     " 关闭菜单栏和工具栏
     " --set guioptions-=m 隐藏菜单栏
     " --set guioptions-=T 隐藏工具栏
@@ -273,10 +274,9 @@ endif
 
 " vim颜色主题
 if !has('gui_running')
-    set background=dark
-    " silent! colorscheme molokai
-    silent! colorscheme molokai
-    set t_Co=256
+    "set background=dark
+    silent! colorscheme tokyonight
+    "set t_Co=256
 endif
 
 

@@ -18,6 +18,7 @@
     ~/.config/git: git
     ~/.config/i3: i3
     ~/.config/nvim: nvim
+    ~/.vimrc: vim/vimrc
     ~/.ideavimrc: ideavim/ideavimrc
     ~/.config/wezterm: wezterm
     ~/.config/alacritty: alacritty
