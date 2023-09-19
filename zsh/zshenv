@@ -86,6 +86,11 @@ export GO111MODULE=on
 #export GOPROXY=https://goproxy.cn
 PATH=$GOPATH/bin:$PATH
 
+# nodejs
+if [ -d /usr/local/node/bin ]; then
+    PATH=/usr/local/node/bin:$PATH
+fi
+
 # Java
 if [ -f /etc/javarc ]; then
     source /etc/javarc
