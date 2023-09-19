@@ -9,7 +9,7 @@ Host *
     ConnectTimeout 10
     ConnectionAttempts 3
     ServerAliveCountMax 120
-    IdentityFile ~/.ssh/tencent
+    IdentityFile ~/.ssh/personal
     GSSAPIAuthentication no
     ControlMaster auto
     ControlPath ~/.ssh/session_%h-%p-%r
