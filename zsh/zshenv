@@ -84,7 +84,10 @@ done
 unset gopaths p
 export GO111MODULE=on
 #export GOPROXY=https://goproxy.cn
-PATH=$GOPATH/bin:$PATH
+if [ -z "$GOPATH" ]; then
+    export GOPATH="$HOME/projects/go"
+    PATH=$GOPATH/bin:$PATH
+fi
 
 # nodejs
 if [ -d /usr/local/node/bin ]; then
