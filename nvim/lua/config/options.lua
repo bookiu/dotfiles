@@ -6,3 +6,7 @@ local opt = vim.opt
 
 opt.relativenumber = true
 opt.wrap = true -- Enable line wrap
+opt.tabstop = 4 -- Number of spaces tabs count for
+opt.softtabstop = 4
+opt.shiftwidth = 4
+
