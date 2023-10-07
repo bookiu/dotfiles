@@ -14,7 +14,3 @@ Host *
     ControlMaster auto
     ControlPath ~/.ssh/session_%h-%p-%r
     ControlPersist 48h
-
-# Fig ssh integration. Keep at the bottom of this file.
-Match all
-  Include ~/.fig/ssh
