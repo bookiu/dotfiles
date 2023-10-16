@@ -1,5 +1,5 @@
-let $IDEADVIMRCFILE = $HOME . "/.dotfiles/ideavim/ideavimrc"
+let $IDEAVIMRCFILE = $HOME . "/.dotfiles/ideavim/ideavimrc"
 
-if filereadable($IDEADVIMRCFILE)
-    source $IDEADVIMRCFILE
+if filereadable($IDEAVIMRCFILE)
+    source $IDEAVIMRCFILE
 fi
