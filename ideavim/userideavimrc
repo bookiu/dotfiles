@@ -1,0 +1,5 @@
+let $IDEADVIMRCFILE = $HOME . "/.dotfiles/ideavim/ideavimrc"
+
+if filereadable($IDEADVIMRCFILE)
+    source $IDEADVIMRCFILE
+fi
