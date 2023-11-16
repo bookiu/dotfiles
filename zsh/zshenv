@@ -85,7 +85,7 @@ unset gopaths p
 export GO111MODULE=on
 #export GOPROXY=https://goproxy.cn
 if [ -z "$GOPATH" ]; then
-    export GOPATH="$HOME/projects/go"
+    export GOPATH="$HOME/Projects/Go"
 fi
 PATH=$GOPATH/bin:$PATH
 
