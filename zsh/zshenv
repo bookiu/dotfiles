@@ -124,6 +124,9 @@ else
 fi
 KUBE_EDITOR=$EDITOR
 
+# CDPATH
+export CDPATH=$HOME:$CDPATH
+
 # WSL
 if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then
     WIN32_USERPROFILE=$(wslpath -m $USERPROFILE)
