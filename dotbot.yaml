@@ -22,6 +22,7 @@
     ~/.ideavimrc: ideavim/ideavimrc
     ~/.config/wezterm: wezterm
     ~/.config/alacritty: alacritty
+    ~/.config/kitty: kitty
     ~/.config/pip: pip
     ~/.config/polybar: polybar
     ~/.config/rofi: rofi
