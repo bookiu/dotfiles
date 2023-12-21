@@ -14,3 +14,6 @@
 [submodule "zsh/themes/headline"]
     path = "zsh/themes/headline"
     url = "https://github.com/Moarram/headline.git"
+[submodule "kitty/themes"]
+	path = kitty/themes
+	url = https://github.com/kovidgoyal/kitty-themes.git
