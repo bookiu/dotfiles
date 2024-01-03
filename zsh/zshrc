@@ -85,6 +85,7 @@ plugins=(
     zsh-autosuggestions
     autojump
     poetry
+    iterm2
 )
 # docker plugin
 if which docker &> /dev/null; then
