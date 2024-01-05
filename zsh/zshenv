@@ -52,6 +52,11 @@ for conda_root in $anacondas; do
 done
 unset conda_root
 
+# snap
+if [ -d /snap ]; then
+    PATH=/snap/bin:$PATH
+fi
+
 # tmux
 # enable Ansi Colors in iTerm2.
 # https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2
