@@ -1,0 +1,34 @@
+reload() {
+    echo "start to reload ~/.zshrc"
+    source $HOME/.zshrc
+    echo "reload ~/.zshrc done"
+}
+
+cursor_open() {
+    if [ $# -eq 0 ]; then
+        echo "usage: $0 <path>"
+        return 1
+    fi
+
+    local max_retry=10
+    for i in {1..$max_retry}; do
+        cursor_srv=$(ls -d -t $HOME/.cursor-server/cli/servers/Stable-* | grep -vE 'staging$' | sed -n "${i}p")
+        if [ -z "$cursor_srv" ]; then
+            echo "cursor server not found"
+            return 1
+        fi
+        local socket=$(echo /run/user/$UID/vscode-ipc-*.sock(=oc[$i]N))
+        if [ -z "$socket" ]; then
+            echo "socket not found"
+            return 1
+        fi
+        export VSCODE_IPC_HOOK_CLI=${socket}
+        $cursor_srv/server/bin/remote-cli/cursor $@ > /dev/null 2>&1
+        if [ "$?" -eq 0 ]; then
+            return 0
+        fi
+    done
+    echo "failed to find valid cursor window"
+}
+
+

@@ -145,7 +145,10 @@ if [[ "$OSTYPE" = darwin* ]]; then
 fi
 
 ZSH_CONFIG="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.zsh" || printf %s "${XDG_CONFIG_HOME}/zsh")"
-profiles=("$ZSH_CONFIG/zshrc.local" "$ZSH_CONFIG/zshenv" "$ZSH_CONFIG/zsh_aliases" "$ZSH_CONFIG/zshenv.local" "$ZSH_CONFIG/zsh_aliases.local")
+profiles=(
+    "$ZSH_CONFIG/zshrc.local" "$ZSH_CONFIG/zshenv" "$ZSH_CONFIG/zsh_func" "$ZSH_CONFIG/zsh_aliases"
+    "$ZSH_CONFIG/zshenv.local" "$ZSH_CONFIG/zsh_func.local" "$ZSH_CONFIG/zsh_aliases.local"
+)
 for profile in $profiles; do
     if [[ -f $profile ]]; then
         source $profile
