@@ -85,7 +85,6 @@ plugins=(
     zsh-autosuggestions
     autojump
     poetry
-    iterm2
 )
 # docker plugin
 if which docker &> /dev/null; then
@@ -108,6 +107,11 @@ if which pip &> /dev/null; then
 fi
 if which systemctl &> /dev/null; then
     plugins+=(systemd)
+fi
+# enable iterm2
+if [ -n $ITERM_PROFILE ]; then
+    zstyle :omz:plugins:iterm2 shell-integration yes
+    plugins+=(iterm2)
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -161,3 +165,4 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

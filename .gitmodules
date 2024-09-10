@@ -17,3 +17,6 @@
 [submodule "kitty/themes"]
 	path = kitty/themes
 	url = https://github.com/kovidgoyal/kitty-themes.git
+[submodule "rime/rime-ice"]
+	path = rime/rime-ice
+	url = https://github.com/iDvel/rime-ice.git
