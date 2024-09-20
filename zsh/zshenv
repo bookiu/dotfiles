@@ -75,11 +75,20 @@ if [ -d "$HOME/.poetry" ]; then
     PATH="$HOME/.poetry/bin:$PATH"
 fi
 
-# Golang
-if [ -f /usr/local/go/bin/go ]; then
-    export GOROOT=/usr/local/go
-    PATH=$GOROOT/bin:$PATH
+# applications
+_app_dir="/opt"
+apps=("neovim" "go" "node" "certbot" "flameshow")
+for app in $apps; do
+    if [[ -d "$_app_dir/$app/bin" ]]; then
+        PATH="$_app_dir/$app/bin:$PATH"
+    fi
+done
+if [[ -d "$_app_dir/flamegraph" ]]; then
+    PATH="$_app_dir/flamegraph:$PATH"
 fi
+unset apps
+
+# Golang
 gopaths=("$HOME/Projects/Go" "$HOME/projects/go")
 for p in $gopaths; do
     if [ -d $p ]; then
@@ -90,15 +99,10 @@ done
 unset gopaths p
 export GO111MODULE=on
 export GOPROXY="https://goproxy.cn,direct"
-if [ -z "$GOPATH" ]; then
+if [[ -z "$GOPATH" ]]; then
     export GOPATH="$HOME/Projects/Go"
 fi
 PATH=$GOPATH/bin:$PATH
-
-# nodejs
-if [ -d /usr/local/node/bin ]; then
-    PATH=/usr/local/node/bin:$PATH
-fi
 
 # Java
 if [ -f /etc/javarc ]; then
