@@ -18,14 +18,14 @@ done
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#808080'
 
 # homebrew
-if [[ `uname` == "Darwin" ]]; then
-    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tencent.com/homebrew-bottles/bottles
-fi
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+#if [[ `uname` == "Darwin" ]]; then
+#    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tencent.com/homebrew-bottles/bottles
+#fi
+#export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+#export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_NO_INSTALL_FROM_API=1
+export HOMEBREW_NO_INSTALL_FROM_API=0
 #export HOMEBREW_FORCE_BREWED_CURL=1
 # fix linuxbrew under vscode which auto set HOMEBREW_PREFIX env
 if [ -n "$HOMEBREW_PREFIX" ] && ! command -v brew &> /dev/null; then
@@ -151,4 +151,3 @@ if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then
     fi
     WIN32_SCOOP_HOME=$(wslpath -m $SCOOP_HOME)
 fi
-

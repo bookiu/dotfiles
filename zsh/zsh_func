@@ -31,4 +31,13 @@ cursor_open() {
     echo "failed to find valid cursor window"
 }
 
+cursor_remote() {
+    if [ $# -lt 2 ]; then
+        echo "usage: $0 <remote_host> <remote_file>"
+        return 1
+    fi
+    local remote=$1
+    local remote_dir=$2
+    cursor --remote ssh-remote+$remote $remote_dir
+}
 
