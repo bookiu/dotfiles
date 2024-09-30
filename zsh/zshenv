@@ -25,7 +25,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#808080'
 #export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_NO_INSTALL_FROM_API=0
+export HOMEBREW_NO_INSTALL_FROM_API=
 #export HOMEBREW_FORCE_BREWED_CURL=1
 # fix linuxbrew under vscode which auto set HOMEBREW_PREFIX env
 if [ -n "$HOMEBREW_PREFIX" ] && ! command -v brew &> /dev/null; then
