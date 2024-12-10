@@ -77,7 +77,7 @@ fi
 
 # applications
 _app_dir="/opt"
-apps=("neovim" "go" "node" "certbot" "flameshow")
+apps=("neovim" "go" "node" "certbot" "flameshow", "python3")
 for app in $apps; do
     if [[ -d "$_app_dir/$app/bin" ]]; then
         PATH="$_app_dir/$app/bin:$PATH"
@@ -103,6 +103,9 @@ if [[ -z "$GOPATH" ]]; then
     export GOPATH="$HOME/Projects/Go"
 fi
 PATH=$GOPATH/bin:$PATH
+
+# rust
+PATH=$HOME/.cargo/bin:$PATH
 
 # Java
 if [ -f /etc/javarc ]; then

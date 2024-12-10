@@ -33,3 +33,6 @@
     ~/.config/helix: helix
     ~/.hammerspoon: hammerspoon
     ~/.config/sketchybar: sketchybar
+    ~/.config/zellij: zellij
+    ~/.config/aerospace: aerospace
+
