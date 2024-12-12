@@ -3,6 +3,7 @@
     eol = lf
     autocrlf = input
     preloadIndex = true
+
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
@@ -12,44 +13,60 @@
     br = branch
     type = cat-file -t
     dump = cat-file -p
+
 [color]
     ui = auto
     diff = auto
     status = auto
     branch = auto
     interactive = auto
+
 [gui]
     encoding = utf-8
+
 [i18n]
     commitencoding = utf-8
+
 [commit]
     template = ~/.config/git/gitmessage
+
 #[http]
 #    proxy = x.co.com:1234
+
 [filter "lfs"]
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
     required = true
+
 [credential]
     helper = cache
+
 [init]
     defaultBranch = master
+
+[user]
+    name = yaxin
+    email = yaxin.me@gmail.com
+
 [oh-my-zsh]
     hide-status = 1
     hide-dirty = 1
+
 [url "git@example.com:"]
     insteadOf = http://example.com/
-[includeIf "gitdir:**/projects/private/"]
-    path = ~/.config/git/private.user
-[includeIf "gitdir:**/projects/tencent/"]
-    path = ~/.config/git/tencent.user
-[includeIf "gitdir:**/Projects/Private/"]
-    path = ~/.config/git/private.user
-[includeIf "gitdir:**/Projects/Tencent/"]
-    path = ~/.config/git/tencent.user
+
+# https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode
+[includeIf "gitdir:~/Projects/Personal/"]
+    path = ~/Projects/Personal/.gitconfig
+
+[includeIf "gitdir:~/Projects/ByteDance/"]
+    path = ~/Projects/ByteDance/.gitconfig
+
+[includeIf "onbranch:feature/xxx"]
+    path = ~/.config/git/branch.gitconfig
+
+[includeIf "hasconfig:remote.*.url:https://example.com/**"]
+    path = ~/.config/git/config.remote.gitconfig
+
 [include]
     path = ~/.config/git/config.local
-
-[user]
-	email = yaxin.me@gmail.com
-	name = yaxin
