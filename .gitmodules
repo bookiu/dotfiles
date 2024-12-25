@@ -1,9 +1,6 @@
 [submodule "zsh/plugins/zsh-autosuggestions"]
     path = zsh/plugins/zsh-autosuggestions
     url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "cheat/cheatsheets/community"]
-    path = cheat/cheatsheets/community
-    url = https://github.com/cheat/cheatsheets.git
 [submodule "zsh/themes/powerlevel10k"]
     path = zsh/themes/powerlevel10k
     url = https://github.com/romkatv/powerlevel10k.git
@@ -11,12 +8,6 @@
     path = zsh/plugins/autojump
     url = https://github.com/wting/autojump.git
     ignore = dirty
-[submodule "zsh/themes/headline"]
-    path = "zsh/themes/headline"
-    url = "https://github.com/Moarram/headline.git"
-[submodule "kitty/themes"]
-	path = kitty/themes
-	url = https://github.com/kovidgoyal/kitty-themes.git
 [submodule "rime/rime-ice"]
 	path = rime/rime-ice
 	url = https://github.com/iDvel/rime-ice.git
