@@ -108,6 +108,9 @@ fi
 if which systemctl &> /dev/null; then
     plugins+=(systemd)
 fi
+if which thefuck &> /dev/null; then
+    plugins+=(thefuck)
+fi
 # enable iterm2
 if [ -n $ITERM_PROFILE ]; then
     zstyle :omz:plugins:iterm2 shell-integration yes
@@ -128,6 +131,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # ignore command start with space
 setopt HIST_IGNORE_SPACE
 # disable ctrl+d
+setopt CORRECT
 #set -o ignoreeof
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -169,3 +173,14 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/bytedance/.lmstudio/bin"
+
+# Added by Windsurf
+export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"
+
+# Added by Windsurf
+export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

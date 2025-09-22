@@ -60,7 +60,7 @@ end
 -- 定义一个函数来处理音频设备变化
 local function audioDeviceChanged(event)
     if event == 'dev#' then  -- 设备数量变化
-        log.d("audit device changed")
+        log.d("audit device changed.")
         if not hasHeadphones() then
             -- 如果没有检测到耳机，则静音
             local device = hs.audiodevice.defaultOutputDevice()

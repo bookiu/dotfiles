@@ -5,6 +5,9 @@ export LC_ALL=en_US.UTF-8
 #
 XDG_CONFIG_HOME="$HOME/.config"
 
+# ansbible
+export ANSIBLE_CONFIG="$HOME/.config/ansible/ansible.cfg"
+
 # Proxy
 proxies=("$HOME/.proxyrc" "/etc/proxyrc")
 for proxyrc in $proxies; do
@@ -128,6 +131,11 @@ export NVM_DIR="$HOME/.nvm"
 # autojump
 PATH=~/.local/bin:~/.autojump/bin:$PATH
 
+# https://github.com/iffse/pay-respects
+if command -v pay-respects &> /dev/null; then
+    eval "$(pay-respects zsh --alias)"
+fi
+
 # Editor
 export EDITOR KUBE_EDITOR
 if command -v nvim &> /dev/null; then
@@ -138,7 +146,7 @@ fi
 KUBE_EDITOR=$EDITOR
 
 # CDPATH
-export CDPATH=$HOME:$CDPATH
+#export CDPATH=$HOME:$CDPATH
 
 # WSL
 if [ -n "$WSL_DISTRO_NAME" -a -n "$USERPROFILE" ]; then

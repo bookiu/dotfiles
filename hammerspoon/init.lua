@@ -4,6 +4,9 @@ spoon.ReloadConfiguration:start()
 hs.loadSpoon("AutoMuteEarphone")
 spoon.AutoMuteEarphone:start()
 
+hs.loadSpoon("QuickLauncher")
+spoon.QuickLauncher:start()
+
 local log = hs.logger.new("IME", "debug")
 local wechatInputMethodSourceID = "com.tencent.inputmethod.wetype.pinyin"
 local squirrelIMSourceID = "im.rime.inputmethod.Squirrel.Hans"

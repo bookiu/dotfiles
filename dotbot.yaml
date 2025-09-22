@@ -35,4 +35,5 @@
     ~/.config/sketchybar: sketchybar
     ~/.config/zellij: zellij
     ~/.config/aerospace: aerospace
+    ~/.config/ansible: ansible
 
