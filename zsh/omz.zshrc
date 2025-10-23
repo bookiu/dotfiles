@@ -19,9 +19,6 @@ source $XDG_CONFIG_HOME/zsh/pre-zshrc
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 if [ -f ~/.zsh_theme ]; then
@@ -111,11 +108,6 @@ fi
 if which thefuck &> /dev/null; then
     plugins+=(thefuck)
 fi
-# enable iterm2
-if [ -n $ITERM_PROFILE ]; then
-    zstyle :omz:plugins:iterm2 shell-integration yes
-    plugins+=(iterm2)
-fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -131,14 +123,10 @@ setopt HIST_IGNORE_ALL_DUPS
 # ignore command start with space
 setopt HIST_IGNORE_SPACE
 # disable ctrl+d
-setopt CORRECT
+#setopt CORRECT
 #set -o ignoreeof
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -157,15 +145,15 @@ profiles=(
     "$ZSH_CONFIG/zshrc.local" "$ZSH_CONFIG/zshenv" "$ZSH_CONFIG/zsh_func" "$ZSH_CONFIG/zsh_aliases"
     "$ZSH_CONFIG/zshenv.local" "$ZSH_CONFIG/zsh_func.local" "$ZSH_CONFIG/zsh_aliases.local"
 )
-for profile in $profiles; do
+for profile in "${profiles[@]}"; do
     if [[ -f $profile ]]; then
-        source $profile
+        source "$profile"
     fi
 done
 
 # Load additional script
 if [ -d "$ZSH_CONFIG/zsh.d/" ]; then
-    for k in $(ls -1 "$ZSH_CONFIG/zsh.d/"); do
+    for k in "${ZSH_CONFIG}"/zsh.d/*; do
         source "$ZSH_CONFIG/zsh.d/${k}"
     done
 fi
@@ -173,12 +161,11 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# 禁用终端的 XON/XOFF 流控制，防止 Ctrl+s 冻结屏幕
+stty -ixon
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/bytedance/.lmstudio/bin"
-
-# Added by Windsurf
-export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"
 
 # Added by Windsurf
 export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"

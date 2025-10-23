@@ -1,7 +1,7 @@
 #!/bin/bash
 
 qssh() {
-    local script_dir="$HOME/Projects/ByteDance/quick_jump"
+    local script_dir="$HOME/Projects/ByteDance/tob-rec/quick_jump"
     local alias_file="$HOME/.qssh_aliases"
     local target="$1"
 
@@ -29,7 +29,7 @@ qssh() {
 
 _qssh_completion() {
     local cur=${COMP_WORDS[COMP_CWORD]}
-    local script_dir="$HOME/Projects/ByteDance/quick_jump"
+    local script_dir="$HOME/Projects/ByteDance/tob-rec/quick_jump"
     local alias_file="$HOME/.qssh_aliases"
 
     # 获取脚本名称
@@ -47,4 +47,7 @@ _qssh_completion() {
     COMPREPLY=($(compgen -W "$options" -- "$cur"))
 }
 
-complete -F _qssh_completion qssh
+
+if which complete &>/dev/null; then
+    complete -F _qssh_completion qssh
+fi

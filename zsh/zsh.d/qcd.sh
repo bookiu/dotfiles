@@ -13,4 +13,6 @@ qcd() {
 	pwd
 }
 
-complete -W "home" qcd
+if which complete &>/dev/null; then
+    complete -W "home" qcd
+fi

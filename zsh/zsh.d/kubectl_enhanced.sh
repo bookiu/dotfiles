@@ -110,7 +110,7 @@ kgn() {
         local instance_type="-"
         local machine_pool="-"
         local -a wanna_labels=()
-        
+
         # Zsh compatible way to split by comma
         for label in ${(s/,/)labels}; do
             if [[ "$label" == "topology.kubernetes.io/zone"* ]]; then
@@ -175,10 +175,18 @@ kgnd() {
     done
 }
 
+kenter() {
+    echo "Entering Pod: kubectl exec -it $* -- sh -c 'clear; (bash || ash || sh)'"
+    kubectl exec -it $* -- sh -c 'clear; (bash || ash || sh)'
+}
 
+alias kexec="kubectl exec -it"
 for ctx in $(kubectl config get-contexts | awk '{print $(NF-2)}' | tail -n +2); do
-    local cmds=("kgnp" "kgn" "kgnd")
+    alias kubectl.$item="kubectl --context=$item"
+    alias k.$item="kubectl --context=$item"
+    cmds=("kgnp" "kgn" "kgnd" "kexec" "kenter")
     for cmd in "${cmds[@]}"; do
-        alias ${cmd}.$ctx="KUBECTX=$ctx ${cmd}"
+        alias ${cmd}.${ctx}="KUBECTX=$ctx ${cmd}"
     done
 done
+unset cmds ctx cmd
