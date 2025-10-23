@@ -876,10 +876,6 @@
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
 
-  # Context format when running with privileges: bold user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
-  # Context format when in SSH without privileges: user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
   # Default context format (no privileges, no SSH): user@hostname.
   local context_content="["
   if [[ `uname` == "Darwin" ]]; then
@@ -895,7 +891,10 @@
   #typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
   #
   typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_TEMPLATE=$context_content
-  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='[ %m]'
+  # Context format when in SSH without privileges: user@hostname.
+  typeset -g POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE=$context_content
+  # Context format when running with privileges: bold user@hostname.
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
