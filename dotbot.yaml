@@ -8,7 +8,7 @@
 
 - link:
     ~/.zshrc:
-      path: zsh/zshrc
+      path: zsh/omz.zshrc
       force: true
     ~/.p10k.zsh: powerlevel10k/config.zsh
     ~/.config/zsh: zsh

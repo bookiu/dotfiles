@@ -154,7 +154,7 @@ done
 # Load additional script
 if [ -d "$ZSH_CONFIG/zsh.d/" ]; then
     for k in "${ZSH_CONFIG}"/zsh.d/*; do
-        source "$ZSH_CONFIG/zsh.d/${k}"
+        source "${k}"
     done
 fi
 
@@ -162,7 +162,9 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # 禁用终端的 XON/XOFF 流控制，防止 Ctrl+s 冻结屏幕
-stty -ixon
+if [ -t 0 ]; then
+  stty -ixon
+fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/bytedance/.lmstudio/bin"
