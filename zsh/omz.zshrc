@@ -139,7 +139,6 @@ setopt HIST_IGNORE_SPACE
 if [[ "$OSTYPE" = darwin* ]]; then
     PATH=$PATH:/Library/Apple/usr/bin:/Library/Apple/bin
 fi
-
 ZSH_CONFIG="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.zsh" || printf %s "${XDG_CONFIG_HOME}/zsh")"
 profiles=(
     "$ZSH_CONFIG/zshrc.local" "$ZSH_CONFIG/zshenv" "$ZSH_CONFIG/zsh_func" "$ZSH_CONFIG/zsh_aliases"
@@ -173,3 +172,6 @@ export PATH="$PATH:/Users/bytedance/.lmstudio/bin"
 export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# Added by Windsurf
+export PATH="/Users/bytedance/.codeium/windsurf/bin:$PATH"

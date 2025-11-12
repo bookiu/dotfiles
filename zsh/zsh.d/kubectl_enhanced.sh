@@ -73,9 +73,9 @@ kctl() {
         fi
     done
     if [ -n "$kubectx" ]; then
-        kubectl --context=$kubectx $@
+        kubectl --context=$kubectx "$@"
     else
-        kubectl $@
+        kubectl "$@"
     fi
 }
 
@@ -177,16 +177,18 @@ kgnd() {
 
 kenter() {
     echo "Entering Pod: kubectl exec -it $* -- sh -c 'clear; (bash || ash || sh)'"
-    kubectl exec -it $* -- sh -c 'clear; (bash || ash || sh)'
+    kctl exec -it $* -- sh -c 'clear; (bash || ash || sh)'
 }
 
-alias kexec="kubectl exec -it"
+alias kexec="kctl exec -it"
+alias kedit="kctl edit"
+alias kgp="kctl get pods"
 for ctx in $(kubectl config get-contexts | awk '{print $(NF-2)}' | tail -n +2); do
-    alias kubectl.$item="kubectl --context=$item"
-    alias k.$item="kubectl --context=$item"
-    cmds=("kgnp" "kgn" "kgnd" "kexec" "kenter")
+    alias "kubectl.${ctx}"="kubectl --context=$ctx"
+    alias "k.$ctx"="kubectl --context=$ctx"
+    cmds=("kgnp" "kgn" "kgnd" "kexec" "kenter" "kedit" "kgp")
     for cmd in "${cmds[@]}"; do
-        alias ${cmd}.${ctx}="KUBECTX=$ctx ${cmd}"
+        alias "${cmd}.${ctx}"="KUBECTX=$ctx ${cmd}"
     done
 done
 unset cmds ctx cmd

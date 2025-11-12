@@ -178,8 +178,8 @@ local config = {
     },
 
     -- window
-    window_background_opacity = 0.9,
-    macos_window_background_blur = 20,
+    window_background_opacity = 0.95,
+    macos_window_background_blur = 50,
     -- window_background_image = wezterm.relative_path("background.jpg"),
     -- window_background_image_hsb =
     -- window_background_gradient = {},

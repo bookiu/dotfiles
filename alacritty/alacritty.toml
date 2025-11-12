@@ -1,0 +1,95 @@
+[general]
+live_config_reload = true
+import = [
+    "~/.config/alacritty/keybindings.toml"
+]
+
+[window]
+#透明度
+opacity = 0.9
+blur = true
+#窗口装饰
+title = "Alacritty"
+dynamic_title = true
+decorations_theme_variant = "Dark"
+option_as_alt = "Both"
+
+[font]
+# Font Smoothing
+# [System] Reset to default font smoothing level (medium)
+# defaults -currentHost delete -g AppleFontSmoothing
+# [Alacritty] Set font smoothing level to 0 (no smoothing)
+# defaults write org.alacritty AppleFontSmoothing -int 0
+normal = { family = "FiraMono Nerd Font Mono", style = "Regular" }
+bold = { family = "FiraMono Nerd Font Mono", style = "Bold" }
+italic = { family = "FiraMono Nerd Font Mono", style = "Italic" }
+bold_italic = { family = "FiraMono Nerd Font Mono", style = "Bold Italic" }
+size = 18
+
+[cursor]
+style = {shape = "Block", blinking = "On"}
+blink_interval = 1000
+thickness = 0.15
+
+[scrolling]
+history = 10240
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>-\t/=、，｜【】「」“”；"
+
+[mouse]
+hide_when_typing = true
+bindings = [
+    { mouse = "Left", mods = "Shift", action = "ExpandSelection" },
+    { mouse = "Right", mods = "Shift", action = "ExpandSelection" },
+    { mouse = "Right", action = "Paste" },
+]
+
+[keyboard]
+bindings = [
+    { key = "Enter", mods = "Command", action = "ToggleFullscreen"},
+    { key = "F", mods = "Control", action = "SearchFocusNext"},
+    #{ key = "B", mods = "Control", action = "SearchFocusPrevious"},
+    { key = "1", mods = "Command", action = "SelectTab1"},
+    { key = "2", mods = "Command", action = "SelectTab2"},
+    { key = "3", mods = "Command", action = "SelectTab3"},
+    { key = "4", mods = "Command", action = "SelectTab4"},
+    { key = "5", mods = "Command", action = "SelectTab5"},
+    { key = "6", mods = "Command", action = "SelectTab6"},
+]
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = '#727169'
+blue = '#7fb4ca'
+cyan = '#7aa89f'
+green = '#98bb6c'
+magenta = '#938aa9'
+red = '#e82424'
+white = '#dcd7ba'
+yellow = '#e6c384'
+
+[colors.cursor]
+cursor = '#c8c093'
+text = '#1d202f'
+
+[colors.normal]
+black = '#090618'
+blue = '#7e9cd8'
+cyan = '#6a9589'
+green = '#76946a'
+magenta = '#957fb8'
+red = '#c34043'
+white = '#c8c093'
+yellow = '#c0a36e'
+
+[colors.primary]
+background = '#1f1f28'
+foreground = '#dcd7ba'
+
+[colors.selection]
+background = '#2d4f67'
+text = '#c8c093'
