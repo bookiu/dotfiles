@@ -27,7 +27,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_FROM_API=
 #export HOMEBREW_FORCE_BREWED_CURL=1
 # fix linuxbrew under vscode which auto set HOMEBREW_PREFIX env
-if [ -n "$HOMEBREW_PREFIX" ] && ! command -v brew &> /dev/null; then
+if [ -n "$HOMEBREW_PREFIX" ] && command -v brew &> /dev/null; then
     eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 fi
 
