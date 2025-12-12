@@ -1,6 +1,11 @@
 #
 XDG_CONFIG_HOME="$HOME/.config"
 
+# Add PATH for macos
+if [[ "$OSTYPE" = darwin* ]]; then
+    PATH=$PATH:/Library/Apple/usr/bin:/Library/Apple/bin
+fi
+
 # ansbible
 export ANSIBLE_CONFIG="$HOME/.config/ansible/ansible.cfg"
 

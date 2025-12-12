@@ -1,0 +1,4 @@
+[[ $- == *i* ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+

@@ -97,8 +97,7 @@ kgnp() {
 
 
 kgn() {
-    local knodes=$*
-    nodes_info=$(kctl get nodes --show-labels $knodes | tail -n +2)
+    nodes_info=$(kctl get nodes --show-labels $* | tail -n +2)
     printf "%-22s %-24s %-12s %-15s %-20s %-21s %-s\n" "Node" "Status" "NodeLevel" "Zone" "InstanceType" "MachinePool" "Labels"
     echo "$nodes_info" | while IFS= read -r line; do
         # 在这里处理每一行
@@ -183,7 +182,7 @@ kenter() {
 alias kexec="kctl exec -it"
 alias kedit="kctl edit"
 alias kgp="kctl get pods"
-for ctx in $(kubectl config get-contexts | awk '{print $(NF-2)}' | tail -n +2); do
+for ctx in $(kubectl config get-contexts -o name); do
     alias "kubectl.${ctx}"="kubectl --context=$ctx"
     alias "k.$ctx"="kubectl --context=$ctx"
     cmds=("kgnp" "kgn" "kgnd" "kexec" "kenter" "kedit" "kgp")

@@ -1,0 +1,93 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+format = """
+$hostname\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$line_break\
+${custom.iterm_prompt_mark}$character"""
+
+right_format = """
+$cmd_duration\
+$status"""
+
+[hostname]
+disabled = false
+format = "[\\[\uF179 $hostname\\]](bold $style)"
+#style = "#dfad81"
+style = "#ff7d00"
+ssh_only = false
+
+[directory]
+disabled = false
+format = "[$path]($style) "
+style = "bold cyan"
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = ""
+
+[cmd_duration]
+disabled = false
+# 格式化: [⏳ 持续时间] 后跟一个空格
+format = "\\[• $duration\\]"
+# 仅当命令执行时间超过 500 毫秒时才显示
+min_time = 500
+# 样式: 设置为加粗黄色
+style = "bold yellow"
+
+[status]
+# 格式化: [状态码 ✘] ✔
+format = "[\\[$status ✘\\]]($style)"
+# 样式: 设置为加粗红色
+style = "bold red"
+# disabled = false 确保它被启用 (默认只在命令失败时显示，这正是我们想要的)
+disabled = false
+
+[kubernetes]
+disabled = false
+format = '[\[$symbol$context(\($namespace\))\]]($style) '
+style = 'cyan bold'
+
+[character]
+# 命令成功时的符号
+success_symbol = "[❯](bold green)"
+# 命令失败时的符号
+error_symbol = "[❯](bold red)"
+
+[aws]
+disabled = true
+
+[time]
+disabled = true
+format = '🕙 [\[ $time \]]($style) '
+time_format = '%T'
+utc_time_offset = '+8'
+# time_range = '10:00:00-14:00:00'
+
+[battery]
+disabled = true
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+[[battery.display]]
+threshold = 50
+style = 'bold yellow'
+discharging_symbol = '💦 '
+[[battery.display]]
+threshold = 20
+style = 'bold red'
+
+[custom.iterm_prompt_mark]
+when = '[ "$TERM_PROGRAM" = "iTerm.app" ]'
+format = "\u001b\\]133;A\u0007"
+shell = "sh"
+disabled = false
