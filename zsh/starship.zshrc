@@ -110,4 +110,4 @@ fi
 
 # Starship prompt
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
-eval "$(/opt/homebrew/bin/starship init zsh)"
+eval "$(starship init zsh)"
