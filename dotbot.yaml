@@ -15,6 +15,7 @@
     ~/.ssh: ssh
     ~/.tmux.conf: tmux/tmux.conf
     ~/.gitconfig: git/config
+    ~/.config/starship: starship
     ~/.config/git: git
     ~/.config/i3: i3
     ~/.config/nvim: nvim
